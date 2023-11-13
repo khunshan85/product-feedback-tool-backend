@@ -31,10 +31,7 @@ class AuthController extends Controller
 
         if (! Auth::attempt($credentials)) {
 
-            return response()->json([
-                'status' => false,
-                'message' => 'Email & Password does not match with our record.',
-            ], 401);
+            return response()->json(['message' => 'Email & Password does not match with our record.'], 401);
         }
 
         $user = Auth::user();

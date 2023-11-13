@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    /**
+     * Feedbacks
+     */
+    Route::get('feedbacks', [FeedbackController::class, 'index']);
+    Route::post('feedback', [FeedbackController::class, 'store']);
+
+    /**
+     * Comments
+     */
+    Route::post('comment', [FeedbackController::class, 'store']);
+});
