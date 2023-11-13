@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             'content' => 'required|string|max:512',
             'feedbackId' => 'required|integer',

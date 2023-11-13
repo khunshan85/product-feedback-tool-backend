@@ -9,7 +9,7 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        return Feedback::all();
+        return Feedback::with('comments')->get();
     }
 
     public function store(Request $request)
@@ -17,14 +17,14 @@ class FeedbackController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:256',
             'description' => 'required|string',
-            'category_id' => 'required|integer',
+            'categoryId' => 'required|integer',
         ]);
 
         $feedback = Feedback::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
         ]);
-        $feedback->category_id = $validated['category_id'];
+        $feedback->category_id = $validated['categoryId'];
         $feedback->user_id = $request->user()->id;
         $feedback->save();
 
