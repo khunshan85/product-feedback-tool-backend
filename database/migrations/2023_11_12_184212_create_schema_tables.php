@@ -20,9 +20,9 @@ return new class extends Migration
             $table->id();
             $table->string('title', 256);
             $table->longText('description');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->bigInteger('vote', false, true)->nullable();
             $table->timestamps();
@@ -31,9 +31,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('content', 512);
-            $table->foreignId('feedback_id');
+            $table->foreignId('feedback_id')->nullable();
             $table->foreign('feedback_id')->references('id')->on('feedbacks');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
@@ -44,8 +44,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
-        Schema::dropIfExists('feedbacks');
         Schema::dropIfExists('comments');
+        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('categories');
     }
 };
